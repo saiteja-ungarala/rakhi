@@ -19,17 +19,24 @@ export default function LandingPage() {
       {/* Container that perfectly shrink-wraps the image */}
       <div className="relative inline-block max-w-[2000px] w-full h-auto max-h-screen z-20 flex items-center justify-center">
         
-        <div className="relative inline-block w-auto h-auto">
-          {/* Full Background Image */}
+        <div className="relative inline-block w-auto h-auto w-full">
+          {/* Desktop Background Image */}
           <img 
             src="/images/main-hero.png" 
             alt="Raksha Bandhan" 
-            className="w-full h-auto max-h-screen object-contain z-0 relative"
+            className="hidden md:block w-full h-auto max-h-screen object-contain z-0 relative"
+          />
+          
+          {/* Mobile Background Image */}
+          <img 
+            src="/images/mobile.png" 
+            alt="Raksha Bandhan" 
+            className="block md:hidden w-full h-auto max-h-screen object-contain z-0 relative"
           />
 
           {/* Interactive Button Overlay */}
-          {/* Centered perfectly over the empty space between the flourishes */}
-          <div className="absolute z-20 top-[65%] left-[20.5%] -translate-x-1/2 -translate-y-1/2 w-[55%] sm:w-[45%] md:w-[38%] lg:w-[32%] flex justify-center">
+          {/* Centered perfectly over the empty space between the flourishes on desktop, centered bottom on mobile */}
+          <div className="absolute z-20 top-[85%] left-1/2 md:top-[65%] md:left-[20.5%] -translate-x-1/2 -translate-y-1/2 w-[80%] sm:w-[60%] md:w-[38%] lg:w-[32%] flex justify-center">
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
