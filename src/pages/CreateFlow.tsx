@@ -239,8 +239,8 @@ export default function CreateFlow() {
 
         {step === 5 && (
           <motion.div key="step5" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="flex-1 flex flex-col items-center justify-center text-center">
-            <div className="w-20 h-20 bg-green-500/20 text-green-400 rounded-full flex items-center justify-center mb-6 animate-pulse-glow">
-              <Sparkles className="w-10 h-10" />
+            <div className="w-24 h-24 rounded-full flex items-center justify-center mb-6 animate-pulse-glow overflow-hidden border-2 border-gold/40 shadow-xl">
+              <img src="/images/step5-icon.png" alt="Rakhi Icon" className="w-full h-full object-cover" />
             </div>
             <h2 className="text-3xl font-serif text-ivory mb-2">It's Ready! 🎉</h2>
             <p className="text-gold-light mb-10 max-w-sm">
