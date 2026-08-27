@@ -88,7 +88,7 @@ export default function WishReveal() {
   if (!wish) return null;
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center relative bg-gradient-to-br from-[#2de0b3] to-[#04a0cb] overflow-hidden">
+    <div className="min-h-screen flex flex-col items-center justify-center relative bg-gradient-to-br from-[#2de0b3] to-[#04a0cb] overflow-x-hidden overflow-y-auto py-12">
       
       {!isOpen ? (
         <motion.div 
@@ -151,9 +151,9 @@ export default function WishReveal() {
               Happy Raksha Bandhan
             </motion.h3>
             
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.2 }}>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.2 }} className="max-h-[45vh] overflow-y-auto custom-scrollbar pr-2 mb-2">
               <p className="font-bold text-xl mb-3 text-burgundy-dark">Dear {wish.to},</p>
-              <p className="text-burgundy/80 leading-relaxed font-medium italic text-lg px-2 text-center">{wish.message}</p>
+              <p className="text-burgundy/80 leading-relaxed font-medium italic text-base md:text-lg px-1 md:px-2 text-center break-words">{wish.message}</p>
             </motion.div>
             
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.8 }} className="mt-8 pt-6 relative">

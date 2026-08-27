@@ -30,6 +30,7 @@ export default function CreateFlow() {
   const [shareUrl, setShareUrl] = useState('');
   const [copied, setCopied] = useState(false);
   const [showSupportPopup, setShowSupportPopup] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
 
   const nextStep = () => setStep(prev => prev + 1);
   const prevStep = () => {
@@ -55,10 +56,25 @@ export default function CreateFlow() {
     setShowSupportPopup(true);
   };
 
-  const generateLink = () => {
+  const generateLink = async () => {
+    setIsGenerating(true);
     const encoded = encodeWishData(data as WishData);
-    const url = `${window.location.origin}/wish/${encodeURIComponent(data.to || '')}?${encoded}`;
-    setShareUrl(url);
+    const longUrl = `${window.location.origin}/wish/${encodeURIComponent(data.to || '')}?${encoded}`;
+    
+    try {
+      const response = await fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(longUrl)}`);
+      if (response.ok) {
+        const shortUrl = await response.text();
+        setShareUrl(shortUrl);
+      } else {
+        setShareUrl(longUrl);
+      }
+    } catch (error) {
+      console.error("URL shortening failed", error);
+      setShareUrl(longUrl);
+    }
+    
+    setIsGenerating(false);
     setShowSupportPopup(false);
     nextStep(); // Go to share step
   };
@@ -298,15 +314,17 @@ export default function CreateFlow() {
               
               <button 
                 onClick={generateLink}
-                className="w-full bg-gradient-to-r from-rose-400 to-rose-500 text-white font-bold py-3.5 rounded-xl shadow-lg hover:shadow-rose-400/50 transition-all mb-3 text-sm"
+                disabled={isGenerating}
+                className="w-full bg-gradient-to-r from-rose-400 to-rose-500 text-white font-bold py-3.5 rounded-xl shadow-lg hover:shadow-rose-400/50 transition-all mb-3 text-sm disabled:opacity-70"
               >
-                I've Supported! Continue ✨
+                {isGenerating ? 'Creating Magic...' : "I've Supported! Continue ✨"}
               </button>
               <button 
                 onClick={generateLink}
-                className="text-burgundy/60 text-xs font-semibold py-2 hover:text-burgundy uppercase tracking-wider"
+                disabled={isGenerating}
+                className="text-burgundy/60 text-xs font-semibold py-2 hover:text-burgundy uppercase tracking-wider disabled:opacity-70"
               >
-                Skip payment & Continue
+                {isGenerating ? 'Please wait...' : 'Skip payment & Continue'}
               </button>
             </motion.div>
           </div>
